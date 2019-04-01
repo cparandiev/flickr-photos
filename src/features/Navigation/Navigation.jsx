@@ -1,13 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {Navbar, NavbarBrand, Nav, Collapse, NavbarToggler } from 'reactstrap';
 
-class Navigation extends Component {
-    render() {
-        return (
-            <div>
-                NAVIGATION
-            </div>
-        );
-    }
+import NavItem from './components/NavItem';
+
+class Navigation extends React.Component {
+  state = { open: false };
+
+  toggle = () => {
+    this.setState((prevState) => ({
+      open: !prevState.open
+    }));
+  }
+
+  render() {
+    const {routesConfig} = this.props;
+    
+    return (
+      <Navbar color="dark" dark expand="md">
+        <NavbarBrand href={routesConfig.home.path}>
+          Flickr Photos
+        </NavbarBrand>
+        <NavbarToggler onClick={this.toggle} />
+        <Collapse isOpen={this.state.open} navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem path={routesConfig.home.path} name="Home" />
+            <NavItem path={routesConfig.photos.path} name="Photos" />
+          </Nav>
+        </Collapse>
+      </Navbar>
+    );
+  }
 }
 
-export default Navigation;    
+export default Navigation;

@@ -9,14 +9,14 @@ export const browserHistory = createBrowserHistory();
 
 export default (history) => {
   const middlewares = applyMiddleware(
-      routerMiddleware(history),
+    routerMiddleware(history),
   );
 
   const rootReducer = reducers(history);
 
   const store = createStore(
-      rootReducer,
-      composeWithDevTools(middlewares)
+    rootReducer,
+    composeWithDevTools(middlewares)
   );
 
   return store;

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import * as serviceWorker from './serviceWorker';
 import configureStore, { browserHistory } from './store/configureStore';
