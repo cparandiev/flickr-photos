@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import {setPhotoSearchActions} from './reduxActions';
 
 class PhotosPage extends Component {
   render() {
+    this.props.setPhotosSearch();
+
     return (
       <div>
         PHOTOS PAGE
@@ -10,4 +15,9 @@ class PhotosPage extends Component {
   }
 }
 
-export default PhotosPage;    
+
+const mapDispatchToProps = dispatch => ({
+  setPhotosSearch: (data) => dispatch(setPhotoSearchActions.DEFAULT(data)),
+});
+    
+export default connect(null, mapDispatchToProps)(PhotosPage);
