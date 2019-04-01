@@ -1,0 +1,12 @@
+.main-layout {
+  position: absolute;
+  top: 56px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow-y: auto; }
+
+.page-content {
+  margin-top: 30px;
+  margin-left: 40vw !important;
+  transform: translateX(-50%); }
