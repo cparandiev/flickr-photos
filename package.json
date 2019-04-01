@@ -14,7 +14,15 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "jsx-quotes": ["error", "prefer-double"],
+      "quotes": [ 2, "single" ],
+      "max-len": ["error", {"code": 120, "ignoreTrailingComments": true, "ignoreComments": true}],
+      "spaced-comment": [2, "always" ],
+      "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+      "no-magic-numbers":  1
+    }
   },
   "browserslist": [
     ">0.2%",
