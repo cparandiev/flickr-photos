@@ -1,0 +1,1 @@
+export {default as getPhotosEpic} from './getPhotosEpic';
