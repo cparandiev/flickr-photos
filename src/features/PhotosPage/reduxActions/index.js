@@ -1,2 +1,3 @@
 export {default as setPhotoSearchActions} from './setPhotoSearch';
-export {default as getPhotosActions} from './getPhotos';
+export {default as getNextPhotosActions} from './getNextPhotos';
+export {default as storePhotosActions} from './storePhotos';

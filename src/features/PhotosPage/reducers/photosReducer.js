@@ -1,21 +1,32 @@
-import { SET_PHOTOS_SEARCH } from '../reduxActionTypes';
+import { concat } from 'ramda';
+import { SET_PHOTOS_SEARCH, STORE_PHOTOS } from '../reduxActionTypes';
 
 const initialState = {
-  pagesInfo: {
-    page: 0, 
-    pages: 1,
+  paginationInfo: {
+    photosPerPage: 20,
+    lastFetchedPage: 0,
+    totalPages: 0,
   },
-  photos: [],
-  perPage: 20,
   filters: {
-    tags: ['safe'],
-  }
+    tags: []
+  },
+  data: []
 };
 
 export default (state = initialState, {type, payload})=> {
   switch(type){
     case SET_PHOTOS_SEARCH.DEFAULT:
       return initialState;
+    case STORE_PHOTOS.DEFAULT:
+      return {
+        ...initialState,
+        paginationInfo: {
+          photosPerPage: payload.perpage,
+          lastFetchedPage: payload.page,
+          totalPages: payload.total,
+        },
+        data: concat(state.data, payload.photo)
+      };
     default: 
       return state;
   }
