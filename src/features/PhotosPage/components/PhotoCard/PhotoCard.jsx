@@ -2,19 +2,20 @@ import React from 'react';
 import { Col, Card, CardImg, CardBody, CardTitle, CardLink } from 'reactstrap';
 import Truncate from 'react-truncate';
 
+import {AUTHOR_LINK, PHOTO_LINK} from '../../constants';
 import './photo-card.css';
 
-const PhotoCard = ({title, tags, authorLink, photoLink, owner, description, imageUrl}) => (
+const PhotoCard = ({title, tags, owner, description, imageUrl, id}) => (
     <Col className="photo-card" xl={3} md={4} sm={6}>
       <Card className="shadow bg-white rounded">
         <CardImg top width="100%" height="200px" src={imageUrl} alt="" />
         <CardBody>
           <CardTitle>
-            <CardLink href="http://localhost:3000/photos">
+            <CardLink href={PHOTO_LINK({authorId: owner, photoId: id})}>
               <p className="photo-title">{title}</p>
             </CardLink>
             <span> by </span>
-            <CardLink href="http://localhost:3000/photos">{owner}</CardLink>
+            <CardLink href={AUTHOR_LINK(owner)}>{owner}</CardLink>
           </CardTitle>
           <div className="photo-description">
             <span className="photo-description-title">Description: </span>

@@ -1,0 +1,1 @@
+export {AUTHOR_LINK, PHOTO_LINK} from './links';
