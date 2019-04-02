@@ -1,38 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row } from 'reactstrap';
-import { map } from 'ramda';
+import { map, join } from 'ramda';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { setPhotoSearchActions, getNextPhotosActions } from './reduxActions';
 import { mergeSelectors } from '../../utils';
-import { photosSelector, paginationInfoSelector } from './selectors';
+import { photosSelector, paginationInfoSelector, photoFiltersSelector } from './selectors';
 import PhotoCard from './components/PhotoCard';
-import TextInput from '../../components/TextInput';
+import Input from '../../components/Input';
 import './photos-page.css';
 
 class PhotosPage extends Component {
 
-  componentDidMount(){
-    const { getNextPhotos } = this.props;
-    getNextPhotos();
+  handleSearchChange = (e) => {
+    const { setPhotosSearch } = this.props;
+    const value = e.target.value;
+    setPhotosSearch(value);
   }
 
-
   render() {
-    const { photos, getNextPhotos, paginationInfo } = this.props;
-    
+    const { photos, getNextPhotos, paginationInfo, filters } = this.props;
+
     return (
       <InfiniteScroll
         useWindow={false}
         pageStart={0}
-        loadMore={getNextPhotos}
+        loadMore={() => getNextPhotos()}
         hasMore={paginationInfo.totalPages > paginationInfo.lastFetchedPage} 
-        loader={<div className="loader" key={0}>Loading ...</div>}
       >
         <Container>
           <Row className="search-photo-input-row">
-            <TextInput/>
+            <Input type="search" value={join(' ', filters.tags)} onChange={this.handleSearchChange}/>
           </Row>
           <Row>
               {map((photo) => <PhotoCard key={photo.id} {...photo}/>, photos)}
@@ -43,7 +42,7 @@ class PhotosPage extends Component {
   }
 }
 
-const selectors = [photosSelector, paginationInfoSelector];
+const selectors = [photosSelector, paginationInfoSelector, photoFiltersSelector];
 const mapStateToProps = mergeSelectors(selectors);
 
 const mapDispatchToProps = dispatch => ({

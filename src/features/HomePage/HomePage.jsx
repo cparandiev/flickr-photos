@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Jumbotron } from 'reactstrap';
 
 class Home extends Component {
   render() {
     return (
-      <div>
-        HOME PAGE
-      </div>
+      <Jumbotron>
+        <h1 className="display-3">HOME PAGE</h1>
+      </Jumbotron>
       );
     }
 }

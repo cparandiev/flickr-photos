@@ -1,11 +1,11 @@
-import { concat } from 'ramda';
+import { concat, split } from 'ramda';
 import { SET_PHOTOS_SEARCH, NORMALIZE_PHOTOS } from '../reduxActionTypes';
 
 const initialState = {
   paginationInfo: {
     photosPerPage: 20,
     lastFetchedPage: 0,
-    totalPages: 0,
+    totalPages: 1,
   },
   filters: {
     tags: []
@@ -15,8 +15,13 @@ const initialState = {
 
 export default (state = initialState, {type, payload})=> {
   switch(type){
-    case SET_PHOTOS_SEARCH.DEFAULT:
-      return initialState;
+    case SET_PHOTOS_SEARCH.FULFILLED:
+      return {
+        ...initialState,
+        filters: {
+          tags: split(' ', payload)
+        }
+      };
       
     case NORMALIZE_PHOTOS.FULFILLED:
       return {
@@ -24,7 +29,7 @@ export default (state = initialState, {type, payload})=> {
         paginationInfo: {
           photosPerPage: payload.perpage,
           lastFetchedPage: payload.page,
-          totalPages: payload.total,
+          totalPages: payload.pages,
         },
         data: concat(state.data, payload.photo)
       };

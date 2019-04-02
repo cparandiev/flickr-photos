@@ -1,11 +1,11 @@
-import { mergeMap, debounceTime, map, catchError, tap } from 'rxjs/operators';
+import { mergeMap, debounceTime, map, catchError, tap, distinctUntilChanged, mapTo } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { ofType, combineEpics } from 'redux-observable';
 import { inc } from 'ramda';
 
 import { apiRequestActions } from '../../../../reduxActions';
-import { getNextPhotosActions, normalizePhotosActions } from '../../reduxActions';
-import { GET_NEXT_PHOTOS, NORMALIZE_PHOTOS } from '../../reduxActionTypes';
+import { getNextPhotosActions, normalizePhotosActions, setPhotoSearchActions } from '../../reduxActions';
+import { GET_NEXT_PHOTOS, NORMALIZE_PHOTOS, SET_PHOTOS_SEARCH } from '../../reduxActionTypes';
 import { paginationInfoSelector, photoFiltersSelector } from '../../selectors';
 import { generatePhotosQueryParams, transformPhotosResponse } from './utils';
 import { mergeSelectors } from '../../../../utils';
@@ -50,4 +50,26 @@ const normalizePhotosActions$ = (action$) => action$.pipe(
   catchError((e) => of(normalizePhotosActions.REJECTED(e)))
 );
 
-export default combineEpics(getNextPhotosEpic$, getNextPhotosEpicFulfilled$, normalizePhotosActions$);
+const setPhotosSearchEpic$ = (action$) => action$.pipe(
+  ofType(SET_PHOTOS_SEARCH.DEFAULT),
+  distinctUntilChanged((x, y) => x.payload === y.payload),
+  mergeMap(({payload}) => merge(
+    of(setPhotoSearchActions.PENDING()),
+    of(setPhotoSearchActions.FULFILLED(payload)),
+  )),
+  catchError((e) => of(setPhotoSearchActions.REJECTED(e)))
+);
+
+const setPhotosSearchFulfilledEpic$ = (action$) => action$.pipe(
+  ofType(SET_PHOTOS_SEARCH.FULFILLED),
+  debounceTime(500),
+  mapTo(getNextPhotosActions.DEFAULT())
+);
+
+export default combineEpics(
+  getNextPhotosEpic$,
+  getNextPhotosEpicFulfilled$,
+  normalizePhotosActions$,
+  setPhotosSearchEpic$,
+  setPhotosSearchFulfilledEpic$
+);

@@ -1,3 +1,3 @@
-export default {
-  DEFAULT:  'SET_PHOTOS_SEARCH'
-};
+import createAsynActionTypes from '../../../reduxActionTypes/utils/createAsynActionTypes';
+
+export default createAsynActionTypes('SET_PHOTOS_SEARCH');
