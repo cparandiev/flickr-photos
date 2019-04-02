@@ -1,4 +1,4 @@
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, catchError } from 'rxjs/operators';
 import { from, of, merge } from 'rxjs';
 import { ofType } from 'redux-observable';
 import apiService from '../services/apiService';

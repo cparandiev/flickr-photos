@@ -1,0 +1,44 @@
+.photo-card {
+  margin: 15px 0; }
+
+.photo-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  display: table-cell;
+  font-size: 18px;
+  font-weight: 600; }
+
+.photo-author {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  display: table-cell;
+  font-size: 16px; }
+
+.photo-tags {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+  display: table-cell;
+  font-size: 14px;
+  position: absolute;
+  bottom: 20px; }
+
+.photo-description {
+  font-size: 14px; }
+
+.photo-description-title {
+  font-weight: 600; }
+
+.photo-tags-title {
+  font-weight: 600; }
+
+.card-body {
+  height: 180px; }
+
+.card-title {
+  height: 30%; }
