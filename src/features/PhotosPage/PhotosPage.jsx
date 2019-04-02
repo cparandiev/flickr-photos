@@ -9,6 +9,7 @@ import { mergeSelectors } from '../../utils';
 import { photosSelector, paginationInfoSelector, photoFiltersSelector } from './selectors';
 import PhotoCard from './components/PhotoCard';
 import Input from '../../components/Input';
+import { NO_RESULTS_FOUND, SEACH_BY_TAGS_PLACEHOLDER } from './constants';
 import './photos-page.css';
 
 class PhotosPage extends Component {
@@ -31,10 +32,16 @@ class PhotosPage extends Component {
       >
         <Container>
           <Row className="search-photo-input-row">
-            <Input type="search" value={join(' ', filters.tags)} onChange={this.handleSearchChange}/>
+            <Input
+              type="search"
+              value={join(' ', filters.tags)}
+              onChange={this.handleSearchChange}
+              placeholder={SEACH_BY_TAGS_PLACEHOLDER}
+            />
           </Row>
           <Row>
               {map((photo) => <PhotoCard key={photo.id} {...photo}/>, photos)}
+              {paginationInfo.totalPages < paginationInfo.lastFetchedPage && NO_RESULTS_FOUND}
           </Row>
         </Container>
       </InfiniteScroll>

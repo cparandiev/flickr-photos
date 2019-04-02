@@ -3,7 +3,10 @@ import { transformNested } from '../../../../../utils';
 
 const notNill = complement(isNil);
 
-const getUrl = pipe(props(['url_o', 'url_l', 'url_c']), find(notNill));
+const getUrl = pipe(
+  props(['url_sq', 'url_t', 'url_s', 'url_q', 'url_m', 'url_n', 'url_z', 'url_c', 'url_l', 'url_o']),
+  find(notNill)
+);
 
 const setPhotoUrl = converge(assoc('imageUrl'), [getUrl, identity]);
 
