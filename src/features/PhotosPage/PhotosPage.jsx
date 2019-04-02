@@ -8,6 +8,8 @@ import { setPhotoSearchActions, getNextPhotosActions } from './reduxActions';
 import { mergeSelectors } from '../../utils';
 import { photosSelector, paginationInfoSelector } from './selectors';
 import PhotoCard from './components/PhotoCard';
+import TextInput from '../../components/TextInput';
+import './photos-page.css';
 
 class PhotosPage extends Component {
 
@@ -26,9 +28,12 @@ class PhotosPage extends Component {
         pageStart={0}
         loadMore={getNextPhotos}
         hasMore={paginationInfo.totalPages > paginationInfo.lastFetchedPage} 
-        loader={<div className='loader' key={0}>Loading ...</div>}
+        loader={<div className="loader" key={0}>Loading ...</div>}
       >
         <Container>
+          <Row className="search-photo-input-row">
+            <TextInput/>
+          </Row>
           <Row>
               {map((photo) => <PhotoCard key={photo.id} {...photo}/>, photos)}
           </Row>
