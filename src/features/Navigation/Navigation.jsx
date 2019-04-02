@@ -16,7 +16,7 @@ class Navigation extends React.Component {
     const {routesConfig} = this.props;
     
     return (
-      <Navbar color="dark" dark expand="md" className="fixed-top">
+      <Navbar color="white" light expand="md" className="fixed-top">
         <NavbarBrand href={routesConfig.home.path}>
           Flickr Photos
         </NavbarBrand>

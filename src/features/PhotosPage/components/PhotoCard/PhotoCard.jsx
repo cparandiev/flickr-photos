@@ -12,10 +12,12 @@ const PhotoCard = ({title, tags, owner, description, imageUrl, id}) => (
         <CardBody>
           <CardTitle>
             <CardLink href={PHOTO_LINK({authorId: owner, photoId: id})}>
-              <p className="photo-title">{title}</p>
+              <span className="photo-title photo-link">{title}</span>
             </CardLink>
             <span> by </span>
-            <CardLink href={AUTHOR_LINK(owner)}>{owner}</CardLink>
+            <CardLink href={AUTHOR_LINK(owner)}>
+              <span className="photo-link">{owner}</span>
+            </CardLink>
           </CardTitle>
           <div className="photo-description">
             <span className="photo-description-title">Description: </span>

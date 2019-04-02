@@ -4,4 +4,5 @@
   left: 0px;
   right: 0px;
   bottom: 0px;
-  overflow-y: auto; }
+  overflow-y: auto;
+  background-image: linear-gradient(#fff, #000447); }
