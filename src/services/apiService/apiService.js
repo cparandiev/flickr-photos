@@ -16,8 +16,7 @@ export default (initialConfig) => {
 
       const config = {
         method,
-          url: `${initialConfig.baseUrl}/${url}`,
-        // url: 'https://api.flickr.com/services/rest/?page=1&tags=safe&per_page=20&extras=tags%2Cdescription%2Curl_o%2Curl_c&method=flickr.photos.search&tag_mode=all&api_key=1831ee27f4a2b88c90158a3a4f3f1f29&format=json&callback=jsonFlickrApi',
+        url: `${initialConfig.baseUrl}/${url}`,
         data,
         params: mergeLeft(queryParams, defaultQueryParams)
       };
