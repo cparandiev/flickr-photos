@@ -1,5 +1,5 @@
 import { concat } from 'ramda';
-import { SET_PHOTOS_SEARCH, STORE_PHOTOS } from '../reduxActionTypes';
+import { SET_PHOTOS_SEARCH, NORMALIZE_PHOTOS } from '../reduxActionTypes';
 
 const initialState = {
   paginationInfo: {
@@ -17,9 +17,10 @@ export default (state = initialState, {type, payload})=> {
   switch(type){
     case SET_PHOTOS_SEARCH.DEFAULT:
       return initialState;
-    case STORE_PHOTOS.DEFAULT:
+      
+    case NORMALIZE_PHOTOS.FULFILLED:
       return {
-        ...initialState,
+        ...state,
         paginationInfo: {
           photosPerPage: payload.perpage,
           lastFetchedPage: payload.page,
@@ -27,6 +28,13 @@ export default (state = initialState, {type, payload})=> {
         },
         data: concat(state.data, payload.photo)
       };
+    
+    case NORMALIZE_PHOTOS.REJECTED:
+      return {
+        ...initialState,
+        filters: state.filters
+      };
+
     default: 
       return state;
   }

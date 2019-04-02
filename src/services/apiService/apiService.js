@@ -9,7 +9,7 @@ export default (initialConfig) => {
     api_key: initialConfig.apiKey,
     callback: initialConfig.callback,
     format: initialConfig.format,
-  }
+  };
 
   return {
     execute: async ({method, url, queryParams, data}) => {
@@ -28,5 +28,5 @@ export default (initialConfig) => {
           ? Promise.resolve(parseJsonp('jsonFlickrApi', prop('data', response)))
           : Promise.reject(response);
     }
-  }
+  };
 };

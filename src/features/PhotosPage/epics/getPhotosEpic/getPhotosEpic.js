@@ -1,40 +1,53 @@
-import { mergeMap, debounceTime, map, catchError } from 'rxjs/operators';
+import { mergeMap, debounceTime, map, catchError, tap } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { ofType, combineEpics } from 'redux-observable';
 import { inc } from 'ramda';
 
 import { apiRequestActions } from '../../../../reduxActions';
-import { GET_NEXT_PHOTOS } from '../../reduxActionTypes';
-import { getNextPhotosActions, storePhotosActions } from '../../reduxActions';
-import { generatePhotosQueryParams, transformPhotosResponse } from './utils';
+import { getNextPhotosActions, normalizePhotosActions } from '../../reduxActions';
+import { GET_NEXT_PHOTOS, NORMALIZE_PHOTOS } from '../../reduxActionTypes';
 import { paginationInfoSelector, photoFiltersSelector } from '../../selectors';
+import { generatePhotosQueryParams, transformPhotosResponse } from './utils';
 import { mergeSelectors } from '../../../../utils';
 
-const getPhotosEpic$ = (action$, state$) => action$.pipe(
+const getNextPhotosEpic$ = (action$, state$) => action$.pipe(
   ofType(GET_NEXT_PHOTOS.DEFAULT),
   debounceTime(500),
-  mergeMap(({payload, meta}) => {
+  mergeMap(() => {
     const {paginationInfo, filters} = mergeSelectors([paginationInfoSelector, photoFiltersSelector])(state$.value);
-    
+    const page = inc(paginationInfo.lastFetchedPage);
+    const tags = filters.tags;
+
     return merge( 
       of(getNextPhotosActions.PENDING()),
       of(apiRequestActions.DEFAULT({
           method: 'GET',
           url: 'services/rest',
-          queryParams: generatePhotosQueryParams({page: inc(paginationInfo.lastFetchedPage), tags: filters.tags }),
+          queryParams: generatePhotosQueryParams({page, tags}),
           ...getNextPhotosActions,
-        },
-        meta
+        }
       ))
-    )
-  })
+    );
+  }),
+  catchError((e) => of(getNextPhotosActions.REJECTED(e)))
 );
 
-const getPhotosEpicFulfilled$ = (action$, state$) => action$.pipe(
+const getNextPhotosEpicFulfilled$ = (action$) => action$.pipe(
   ofType(GET_NEXT_PHOTOS.FULFILLED),
-  map(({payload}) => transformPhotosResponse(payload)),
-  map(storePhotosActions.DEFAULT),
-  catchError(getNextPhotosActions.REJECTED)
+  map(({payload}) => normalizePhotosActions.DEFAULT(payload)),
+  catchError((e) => of(normalizePhotosActions.REJECTED(e)))
 );
 
-export default combineEpics(getPhotosEpic$, getPhotosEpicFulfilled$);
+const normalizePhotosActions$ = (action$) => action$.pipe(
+  ofType(NORMALIZE_PHOTOS.DEFAULT),
+  mergeMap(({payload}) => merge(
+      of(normalizePhotosActions.PENDING()),
+      of(payload).pipe(
+        map(transformPhotosResponse),
+        map(normalizePhotosActions.FULFILLED),
+      )),
+  ),
+  catchError((e) => of(normalizePhotosActions.REJECTED(e)))
+);
+
+export default combineEpics(getNextPhotosEpic$, getNextPhotosEpicFulfilled$, normalizePhotosActions$);
