@@ -8,9 +8,7 @@ export class Layout extends Component {
     
     return (
       <div className="main-layout">
-        <div className="page-content">
-          {children}
-        </div>
+        {children}
       </div>
     );
   }

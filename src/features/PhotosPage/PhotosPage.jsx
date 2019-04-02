@@ -1,26 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Container, Row } from 'reactstrap';
+import { map } from 'ramda';
+import InfiniteScroll from 'react-infinite-scroller';
 
-import {setPhotoSearchActions, getNextPhotosActions} from './reduxActions';
+import { setPhotoSearchActions, getNextPhotosActions } from './reduxActions';
+import { mergeSelectors } from '../../utils';
+import { photosSelector, paginationInfoSelector } from './selectors';
+import PhotoCard from './components/PhotoCard';
 
 class PhotosPage extends Component {
 
-  render() {
-    this.props.setPhotosSearch();
-    this.props.getNextPhotos();
+  componentDidMount(){
+    const { getNextPhotos } = this.props;
+    getNextPhotos();
+  }
 
+
+  render() {
+    const { photos, getNextPhotos, paginationInfo } = this.props;
+    
     return (
-      <div>
-        PHOTOS PAGE
-      </div>
+      <InfiniteScroll
+        useWindow={false}
+        pageStart={0}
+        loadMore={getNextPhotos}
+        hasMore={paginationInfo.totalPages > paginationInfo.lastFetchedPage} 
+        loader={<div className='loader' key={0}>Loading ...</div>}
+      >
+        <Container>
+          <Row>
+              {map((photo) => <PhotoCard key={photo.id} {...photo}/>, photos)}
+          </Row>
+        </Container>
+      </InfiniteScroll>
     );
   }
 }
 
+const selectors = [photosSelector, paginationInfoSelector];
+const mapStateToProps = mergeSelectors(selectors);
 
 const mapDispatchToProps = dispatch => ({
   setPhotosSearch: (data) => dispatch(setPhotoSearchActions.DEFAULT(data)),
   getNextPhotos: () => dispatch(getNextPhotosActions.DEFAULT()),
 });
     
-export default connect(null, mapDispatchToProps)(PhotosPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PhotosPage);

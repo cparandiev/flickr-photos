@@ -5,8 +5,3 @@
   right: 0px;
   bottom: 0px;
   overflow-y: auto; }
-
-.page-content {
-  margin-top: 30px;
-  margin-left: 50vw;
-  transform: translateX(-50%); }

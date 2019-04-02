@@ -1,6 +1,7 @@
 import { mergeMap, debounceTime, map, catchError } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { ofType, combineEpics } from 'redux-observable';
+import { inc } from 'ramda';
 
 import { apiRequestActions } from '../../../../reduxActions';
 import { GET_NEXT_PHOTOS } from '../../reduxActionTypes';
@@ -20,7 +21,7 @@ const getPhotosEpic$ = (action$, state$) => action$.pipe(
       of(apiRequestActions.DEFAULT({
           method: 'GET',
           url: 'services/rest',
-          queryParams: generatePhotosQueryParams({page: paginationInfo.page + 1, tags: filters.tags }),
+          queryParams: generatePhotosQueryParams({page: inc(paginationInfo.lastFetchedPage), tags: filters.tags }),
           ...getNextPhotosActions,
         },
         meta
