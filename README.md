@@ -2,7 +2,7 @@
 
 Flickr Photo is a single page web application used to display photos from Flickr API and optionally filter them by tags.
 
-## [Live Demo](https://flickr-photos.netlify.com/)
+### [Live Demo](https://flickr-photos.netlify.com/)
 
 ## Installing / Getting started
 
