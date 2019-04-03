@@ -8,7 +8,7 @@ import { NORMALIZE_PHOTOS } from '../../../reduxActionTypes';
 const action$ = ActionsObservable.of(getNextPhotosActions.FULFILLED());
 
 describe('Get Next Photos Epic Fulfilled', () => {
-    it('dispatches the correct actions when it is successful', (done) => {
+    it('dispatches the correct action when it is successful', (done) => {
         const expectedOutputAction = {type: NORMALIZE_PHOTOS.DEFAULT};
 
         getNextPhotosEpicFulfilled$(action$)

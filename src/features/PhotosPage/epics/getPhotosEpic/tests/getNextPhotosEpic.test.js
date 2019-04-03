@@ -10,7 +10,7 @@ import { GET_NEXT_PHOTOS } from '../../../reduxActionTypes';
 const action$ = ActionsObservable.of(getNextPhotosActions.DEFAULT());
 const state$ = new StateObservable(new Subject(), {photos: initialState});
 
-describe('saveFieldEpic Epic', () => {
+describe('Get Next Photos Epic', () => {
     it('dispatches the correct actions when it is successful', (done) => {
         const expectedOutputActions = [{
           type: GET_NEXT_PHOTOS.PENDING
