@@ -24,5 +24,4 @@ describe('Set Photos Search Epic', () => {
           }
         );
     });
-
 });

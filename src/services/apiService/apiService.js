@@ -2,7 +2,7 @@ import axios from 'axios';
 import { mergeLeft, prop } from 'ramda';
 import parseJsonp from 'parse-jsonp';
 
-import {extractResponseStatusCode} from './utils';
+import { extractResponseStatusCode } from './utils';
 
 export default (initialConfig) => {
   const defaultQueryParams = {

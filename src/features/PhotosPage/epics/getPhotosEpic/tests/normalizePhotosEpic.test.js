@@ -29,7 +29,7 @@ const payload = {
 
 const action$ = ActionsObservable.of(normalizePhotosActions.DEFAULT(payload));
 
-describe('Get Next Photos Epic Fulfilled', () => {
+describe('Normalize Photos Epic', () => {
     it('dispatches the correct actions when it is successful', (done) => {
       const expectedOutputActions = [{
         type: NORMALIZE_PHOTOS.PENDING
@@ -56,7 +56,6 @@ describe('Get Next Photos Epic Fulfilled', () => {
         }
       }];
         
-
       normalizePhotosEpic$(action$)
           .subscribe(actualOutputAction => {
               expect(expectedOutputActions).toContainEqual(actualOutputAction);
@@ -64,5 +63,4 @@ describe('Get Next Photos Epic Fulfilled', () => {
           }
       );
     });
-
 });

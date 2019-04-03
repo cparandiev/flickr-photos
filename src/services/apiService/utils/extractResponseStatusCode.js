@@ -21,4 +21,4 @@ export default (response) => {
   } catch(error){
     return 500;
   }
-}
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, NavbarBrand, Nav, Collapse, NavbarToggler } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, Collapse, NavbarToggler } from 'reactstrap';
 
 import NavItem from './components/NavItem';
 import './navigation.css';

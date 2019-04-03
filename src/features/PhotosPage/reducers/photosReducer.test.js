@@ -7,7 +7,7 @@ describe('Photos Reducer', () => {
   });
 
   it('should handle SET_PHOTOS_SEARCH_FULFILLED', () => {
-    const action = setPhotoSearchActions.FULFILLED('safe car bus')
+    const action = setPhotoSearchActions.FULFILLED('safe car bus');
 
     expect(photosReducer(undefined, action)).toEqual({
       ...initialState,
@@ -23,7 +23,7 @@ describe('Photos Reducer', () => {
       page: 1,
       pages: 3,
       photo: [{id: 1}]
-    })
+    });
 
     expect(photosReducer(undefined, action)).toEqual({
       paginationInfo: {

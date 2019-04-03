@@ -18,5 +18,4 @@ describe('Get Next Photos Epic Fulfilled', () => {
             }
         );
     });
-
 });
