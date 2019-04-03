@@ -10,6 +10,7 @@ Flickr Photo is a single page web application used to display photos from Flickr
 ### 2. Open project directory to install the dependencies
 
 ```sh
+    nvm use
     npm install
     npm install --only-dev
 ``` 
