@@ -35,8 +35,8 @@ describe('Get Next Photos Epic', () => {
         }];
 
         getNextPhotosEpic$(action$, state$)
-            .subscribe(actualOutputActions => {
-                expect(expectedOutputActions).toContainEqual(actualOutputActions);
+            .subscribe(actualOutputAction => {
+                expect(expectedOutputActions).toContainEqual(actualOutputAction);
                 done();
             }
         );
