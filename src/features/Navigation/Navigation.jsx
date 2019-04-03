@@ -2,6 +2,7 @@ import React from 'react';
 import {Navbar, NavbarBrand, Nav, Collapse, NavbarToggler } from 'reactstrap';
 
 import NavItem from './components/NavItem';
+import './navigation.css';
 
 class Navigation extends React.Component {
   state = { open: false };
@@ -16,7 +17,7 @@ class Navigation extends React.Component {
     const {routesConfig} = this.props;
     
     return (
-      <Navbar color="white" light expand="md" className="fixed-top">
+      <Navbar dark expand="md" className="fixed-top">
         <NavbarBrand href={routesConfig.home.path}>
           Flickr Photos
         </NavbarBrand>

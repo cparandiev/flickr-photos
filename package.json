@@ -69,7 +69,6 @@
           "allowSingleLine": true
         }
       ],
-      "no-magic-numbers": 1,
       "semi": [
         "error",
         "always"

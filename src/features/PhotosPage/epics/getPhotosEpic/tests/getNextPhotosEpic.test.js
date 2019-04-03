@@ -1,11 +1,11 @@
 
 import { ActionsObservable, StateObservable } from 'redux-observable';
-import { Subject } from 'rxjs'
+import { Subject } from 'rxjs';
 
-import { initialState } from '../../../reducers/photosReducer'
+import { initialState } from '../../../reducers/photosReducer';
 import { getNextPhotosEpic$ } from '../getPhotosEpic';
 import { getNextPhotosActions } from '../../../reduxActions';
-import { NORMALIZE_PHOTOS, GET_NEXT_PHOTOS } from '../../../reduxActionTypes';
+import { GET_NEXT_PHOTOS } from '../../../reduxActionTypes';
 
 const action$ = ActionsObservable.of(getNextPhotosActions.DEFAULT());
 const state$ = new StateObservable(new Subject(), {photos: initialState});
@@ -32,7 +32,7 @@ describe('saveFieldEpic Epic', () => {
             },
             ...getNextPhotosActions
           }
-        }]
+        }];
 
         getNextPhotosEpic$(action$, state$)
             .subscribe(actualOutputActions => {
