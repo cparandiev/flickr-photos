@@ -1,7 +1,7 @@
 import { concat, split } from 'ramda';
 import { SET_PHOTOS_SEARCH, NORMALIZE_PHOTOS } from '../reduxActionTypes';
 
-const initialState = {
+export const initialState = {
   paginationInfo: {
     photosPerPage: 20,
     lastFetchedPage: 0,

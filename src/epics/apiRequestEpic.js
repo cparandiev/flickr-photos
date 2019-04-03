@@ -8,16 +8,16 @@ import { apiRequestActions } from '../reduxActions';
 
 const apiRequestEpic$ = action$ => action$.pipe(
   ofType(API_REQUEST.DEFAULT),
-  mergeMap(({payload, meta}) => merge(
+  mergeMap(({payload}) => merge(
     of(apiRequestActions.PENDING()),
     from(apiService.execute(payload)).pipe(
       mergeMap((response) => merge(
-        of(apiRequestActions.FULFILLED(response, meta)),
-        of(payload.FULFILLED(response, meta))
+        of(apiRequestActions.FULFILLED(response)),
+        of(payload.FULFILLED(response))
       )),
       catchError(error => merge(
-        of(apiRequestActions.REJECTED(error, meta)),
-        of(payload.REJECTED(error, meta))
+        of(apiRequestActions.REJECTED(error)),
+        of(payload.REJECTED(error))
       ))
     ))
   )

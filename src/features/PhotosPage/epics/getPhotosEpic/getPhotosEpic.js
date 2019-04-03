@@ -1,4 +1,4 @@
-import { mergeMap, debounceTime, map, catchError, distinctUntilChanged, mapTo } from 'rxjs/operators';
+import { mergeMap, debounceTime, map, catchError, distinctUntilChanged } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 import { ofType, combineEpics } from 'redux-observable';
 import { inc } from 'ramda';
@@ -10,7 +10,7 @@ import { paginationInfoSelector, photoFiltersSelector } from '../../selectors';
 import { generatePhotosQueryParams, transformPhotosResponse } from './utils';
 import { mergeSelectors } from '../../../../utils';
 
-const getNextPhotosEpic$ = (action$, state$) => action$.pipe(
+export const getNextPhotosEpic$ = (action$, state$) => action$.pipe(
   ofType(GET_NEXT_PHOTOS.DEFAULT),
   debounceTime(300),
   mergeMap(() => {
@@ -32,7 +32,7 @@ const getNextPhotosEpic$ = (action$, state$) => action$.pipe(
   catchError((e) => of(getNextPhotosActions.REJECTED(e)))
 );
 
-const getNextPhotosEpicFulfilled$ = (action$) => action$.pipe(
+export const getNextPhotosEpicFulfilled$ = (action$) => action$.pipe(
   ofType(GET_NEXT_PHOTOS.FULFILLED),
   map(({payload}) => normalizePhotosActions.DEFAULT(payload)),
   catchError((e) => of(normalizePhotosActions.REJECTED(e)))

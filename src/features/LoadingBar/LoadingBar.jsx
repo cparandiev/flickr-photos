@@ -6,7 +6,7 @@ import { showIndexSelector } from './selectors';
 import { mergeSelectors } from '../../utils';
 import './loading-bar.css';
 
-class LoadingBar extends Component {
+export class LoadingBar extends Component {
 
   render() {
     const { showIndex } = this.props;
