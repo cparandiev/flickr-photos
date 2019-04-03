@@ -1,4 +1,4 @@
-# Flckr Photos
+# Flickr Photos
 
 Flickr Photo is a single page web application used to display photos from Flickr API and optionally filter them by tags.
 
