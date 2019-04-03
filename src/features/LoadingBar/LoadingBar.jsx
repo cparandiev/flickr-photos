@@ -12,7 +12,7 @@ export class LoadingBar extends Component {
     const { showIndex } = this.props;
     
     return showIndex > 0
-      ? <Pace className="pace-loader" color="red" height={2}/>
+      ? <Pace className="pace-loader" color="white" height={3}/>
       : null;
   }
 }
