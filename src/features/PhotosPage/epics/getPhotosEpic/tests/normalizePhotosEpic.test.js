@@ -1,7 +1,7 @@
 
 import { ActionsObservable } from 'redux-observable';
 
-import { normalizePhotosActions$ } from '../getPhotosEpic';
+import { normalizePhotosEpic$ } from '../getPhotosEpic';
 import { normalizePhotosActions } from '../../../reduxActions';
 import { NORMALIZE_PHOTOS } from '../../../reduxActionTypes';
 
@@ -57,7 +57,7 @@ describe('Get Next Photos Epic Fulfilled', () => {
       }];
         
 
-      normalizePhotosActions$(action$)
+      normalizePhotosEpic$(action$)
           .subscribe(actualOutputAction => {
               expect(expectedOutputActions).toContainEqual(actualOutputAction);
               done();

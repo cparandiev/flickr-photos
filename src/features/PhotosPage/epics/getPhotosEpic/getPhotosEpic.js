@@ -38,7 +38,7 @@ export const getNextPhotosEpicFulfilled$ = (action$) => action$.pipe(
   catchError((e) => of(normalizePhotosActions.REJECTED(e)))
 );
 
-export const normalizePhotosActions$ = (action$) => action$.pipe(
+export const normalizePhotosEpic$ = (action$) => action$.pipe(
   ofType(NORMALIZE_PHOTOS.DEFAULT),
   mergeMap(({payload}) => merge(
       of(normalizePhotosActions.PENDING()),
@@ -63,6 +63,6 @@ export const setPhotosSearchEpic$ = (action$) => action$.pipe(
 export default combineEpics(
   getNextPhotosEpic$,
   getNextPhotosEpicFulfilled$,
-  normalizePhotosActions$,
+  normalizePhotosEpic$,
   setPhotosSearchEpic$,
 );
